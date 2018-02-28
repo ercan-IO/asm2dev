@@ -1,0 +1,11 @@
+#!/bin/bash
+printf "ASM disk \t Device \t [Minor Major] \n"
+for i in `/etc/init.d/oracleasm listdisks`;
+do
+        ASMDISK=`/etc/init.d/oracleasm querydisk $i | cut -d\" -f2`
+        MINOR=`/etc/init.d/oracleasm querydisk -d $i | tr "[]" " " | awk '{print $NF}' | cut -d, -f1`
+        MAJOR=`/etc/init.d/oracleasm querydisk -d $i | tr "[]" " " | awk '{print $NF}' | cut -d, -f2`
+        MINOR_C=$MINOR,
+        DEVICE=`ls -la /dev |  awk '{print $5, $6, $NF}' | grep $MINOR_C | grep -w $MAJOR | awk '{print $NF}'`
+        printf "$ASMDISK \t /dev/$DEVICE \t [$MINOR $MAJOR] \n";
+done
