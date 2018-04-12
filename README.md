@@ -1,5 +1,5 @@
 # asm2dev
 asm2dev Find Oracle ASM Disk/Devices/Dev
-```shell
+```bash
 chmod +x asm2dev
 ```
